@@ -1,1 +1,405 @@
-<h1>Hello, this works</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nora Greenfield — Gymnastics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171F;
+    --chalk:#EFF1F4;
+    --slate:#5A6072;
+    --gold:#CBA135;
+    --pink:#FF3E78;
+    --tangerine:#FF8A3D;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--chalk);
+    line-height:1.6;
+  }
+
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  img{ display:block; max-width:100%; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    background:var(--ink);
+    color:var(--chalk);
+    padding:1rem 1.25rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:0.75rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  nav .brand{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    text-transform:none;
+    letter-spacing:0;
+  }
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:1.25rem;
+    flex-wrap:wrap;
+  }
+  nav a{ text-decoration:none; opacity:0.75; transition:opacity .2s; }
+  nav a:hover, nav a.active{ opacity:1; }
+  nav a.active{ color:var(--gold); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--ink);
+    color:var(--chalk);
+    padding:3rem 1.25rem 4rem;
+    overflow:hidden;
+  }
+  .hero-inner{
+    position:relative;
+    max-width:900px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:1.5rem;
+  }
+  .stripes{
+    position:absolute;
+    width:140%;
+    height:55%;
+    top:-12%;
+    left:-20%;
+    transform:rotate(-9deg);
+    background:repeating-linear-gradient(
+      120deg,
+      var(--pink) 0 22px,
+      var(--tangerine) 22px 44px,
+      var(--gold) 44px 54px,
+      transparent 54px 78px
+    );
+    opacity:0.9;
+    z-index:0;
+  }
+  .portrait{
+    position:relative;
+    z-index:1;
+    width:min(280px, 70vw);
+    aspect-ratio:4/5;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+    border:3px solid var(--chalk);
+  }
+  .portrait img{
+    width:100%; height:100%; object-fit:cover;
+  }
+  .hero-text{ position:relative; z-index:1; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:0.6rem;
+  }
+  h1{
+    font-family:'Instrument Serif', serif;
+    font-weight:400;
+    font-size:clamp(2.8rem, 9vw, 4.5rem);
+    line-height:1.05;
+    margin-bottom:0.5rem;
+  }
+  .hero-sub{
+    color:#C7CBD4;
+    font-size:1rem;
+    max-width:30ch;
+    margin:0 auto 0.5rem;
+  }
+  .insta-link{
+    display:inline-flex;
+    align-items:center;
+    gap:0.4rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    text-decoration:none;
+    color:var(--chalk);
+    border-bottom:2px solid var(--pink);
+    padding-bottom:2px;
+    transition:border-color .2s;
+  }
+  .insta-link:hover{ border-color:var(--tangerine); }
+
+  @media (prefers-reduced-motion: no-preference){
+    .portrait, .hero-text > *{
+      animation: rise 0.9s ease both;
+    }
+    .hero-text > *:nth-child(2){ animation-delay: .08s; }
+    .hero-text > *:nth-child(3){ animation-delay: .16s; }
+    .hero-text > *:nth-child(4){ animation-delay: .24s; }
+    @keyframes rise{
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{
+    max-width:900px;
+    margin:0 auto;
+    padding:3.5rem 1.25rem;
+  }
+  .divider{
+    width:64px;
+    height:3px;
+    background:var(--gold);
+    transform:rotate(-2deg);
+    margin-bottom:1.25rem;
+  }
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin-bottom:0.75rem;
+  }
+  h2{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(1.8rem, 5vw, 2.6rem);
+    margin-bottom:1.25rem;
+  }
+  .about p{
+    max-width:65ch;
+    margin-bottom:1rem;
+    color:#2A2E38;
+  }
+  .about p:last-child{ margin-bottom:0; }
+
+  /* ---------- SCOREBOARD ---------- */
+  .scores-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1.25rem;
+  }
+  @media (min-width:600px){
+    .scores-grid{ grid-template-columns:1fr 1fr; }
+  }
+  .scorecard{
+    background:var(--ink);
+    color:var(--chalk);
+    border-radius:10px;
+    padding:1.5rem 1.5rem 1.25rem;
+  }
+  .scorecard h3{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-size:1.4rem;
+    color:var(--gold);
+    margin-bottom:0.25rem;
+  }
+  .scorecard .sub{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:#9499A6;
+    margin-bottom:1rem;
+  }
+  .score-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:'IBM Plex Mono', monospace;
+    padding:0.5rem 0;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .score-row:last-child{ border-bottom:none; }
+  .score-row .label{
+    font-size:0.85rem;
+    letter-spacing:0.08em;
+    color:#C7CBD4;
+  }
+  .score-row .value{
+    font-size:1.05rem;
+    font-weight:500;
+  }
+  .score-row.total .label,
+  .score-row.total .value{
+    color:var(--gold);
+    font-weight:600;
+    font-size:1.15rem;
+  }
+  .score-row.total{ padding-top:0.7rem; margin-top:0.2rem; border-top:2px solid var(--gold); border-bottom:none;}
+
+  /* ---------- TEAM PHOTO ---------- */
+  .team{
+    background:var(--ink);
+  }
+  .team .team-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:3.5rem 1.25rem;
+    color:var(--chalk);
+  }
+  .team .section-label{ color:var(--gold); }
+  .team-photo{
+    border-radius:8px;
+    overflow:hidden;
+    border:3px solid var(--chalk);
+    max-width:420px;
+    margin:0 auto 1rem;
+  }
+  .team-caption{
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:#C7CBD4;
+    max-width:40ch;
+    margin:0 auto;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:3rem 1.25rem;
+    text-align:center;
+  }
+  footer .insta-link{
+    color:var(--ink);
+    border-bottom:2px solid var(--pink);
+    font-size:1rem;
+    margin-bottom:1.25rem;
+  }
+  footer .insta-link:hover{ border-color:var(--tangerine); }
+  footer ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:1.5rem;
+    margin-top:1.25rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  footer a{ text-decoration:none; color:var(--slate); transition:color .2s; }
+  footer a:hover{ color:var(--ink); }
+  footer .copyright{
+    margin-top:2rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--slate);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Nora Greenfield</span>
+  <ul>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="scores.html">Scores</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="photos.html">Photos</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="stripes" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="portrait">
+      <img src="images/nora-headshot.jpg" alt="Nora Greenfield in her WOGA competition leotard" />
+    </div>
+    <div class="hero-text">
+      <p class="eyebrow">Training Level 9 &middot; Hopes (13&ndash;14) &mdash; WOGA Gymnastics, Texas</p>
+      <h1>Nora Greenfield</h1>
+      <p class="hero-sub">Competitive gymnast training toward Junior Elite. Strongest on bars, building toward 2027.</p>
+      <a class="insta-link" href="https://www.instagram.com/thejoyfulgymnast" target="_blank" rel="noopener">@thejoyfulgymnast on Instagram</a>
+    </div>
+  </div>
+</header>
+
+<section class="about">
+  <p class="section-label">About</p>
+  <div class="divider"></div>
+  <h2>The story so far</h2>
+  <p>Nora Greenfield is a 12-year-old competitive gymnast training at WOGA Gymnastics under coaches Evgeniya Artemova and Eddie Vavilov. Having completed Level 8 and the Hopes (11&ndash;12) division, Nora is now training Level 9 and will compete in the Hopes (13&ndash;14) category this summer, continuing her path toward Junior Elite with qualification targeted for early 2027.</p>
+  <p>Nora's gymnastics journey began at age three, when her mother noticed her natural flexibility and enrolled her in a recreational class. By age six, a coach invited her to join a competitive team, and she began competing Levels 2 and 3 at SGA in North Carolina. In June 2021, Nora's family relocated to Texas, settling less than a mile from WOGA Gymnastics &mdash; where she has trained ever since.</p>
+  <p>A standout on bars, Nora trains more than 30 hours per week and has earned numerous state and regional titles, along with multiple appearances on America's Top 100. Her long-term goals include competing at the NCAA level and representing the United States in international competition.</p>
+  <p>Outside the gym, Nora is a 7th grader at Texas Connections Academy. She's a Christian, enjoys swimming, and loves spending time with family and friends.</p>
+</section>
+
+<section class="bests">
+  <p class="section-label">Current Personal Bests</p>
+  <div class="divider"></div>
+  <h2>Where the scores stand</h2>
+  <div class="scores-grid">
+    <div class="scorecard">
+      <h3>Level 8</h3>
+      <p class="sub">2026 Season &mdash; Completed</p>
+      <div class="score-row"><span class="label">Vault</span><span class="value">9.725</span></div>
+      <div class="score-row"><span class="label">Bars</span><span class="value">9.900</span></div>
+      <div class="score-row"><span class="label">Beam</span><span class="value">9.800</span></div>
+      <div class="score-row"><span class="label">Floor</span><span class="value">9.875</span></div>
+      <div class="score-row total"><span class="label">All-Around</span><span class="value">39.075</span></div>
+    </div>
+    <div class="scorecard">
+      <h3>Hopes (11&ndash;12)</h3>
+      <p class="sub">2025 Season &mdash; Completed</p>
+      <div class="score-row"><span class="label">Vault</span><span class="value">11.850</span></div>
+      <div class="score-row"><span class="label">Bars</span><span class="value">10.250</span></div>
+      <div class="score-row"><span class="label">Beam</span><span class="value">11.400</span></div>
+      <div class="score-row"><span class="label">Floor</span><span class="value">11.100</span></div>
+      <div class="score-row total"><span class="label">All-Around</span><span class="value">43.750</span></div>
+    </div>
+  </div>
+  <p class="team-caption" style="margin-top:1.5rem; color:var(--slate); max-width:50ch;">Nora is now training Level 9 and will move into the Hopes (13&ndash;14) category this summer &mdash; scores for both to come.</p>
+</section>
+
+<div class="team">
+  <div class="team-inner">
+    <p class="section-label">Team</p>
+    <div class="divider"></div>
+    <div class="team-photo">
+      <img src="images/nora-team.jpg" alt="Nora with her WOGA Gymnastics coaches and teammate at the 2025 HOPES Championships" />
+    </div>
+    <p class="team-caption">With coaches Eddie Vavilov and Evgeniya Artemova and a WOGA teammate at the 2025 HOPES Championships.</p>
+  </div>
+</div>
+
+<footer>
+  <a class="insta-link" href="https://www.instagram.com/thejoyfulgymnast" target="_blank" rel="noopener">@thejoyfulgymnast</a>
+  <ul>
+    <li><a href="scores.html">Scores &amp; Achievements</a></li>
+    <li><a href="skills.html">Skills List</a></li>
+    <li><a href="photos.html">Photo Highlights</a></li>
+  </ul>
+  <p class="copyright">WOGA Gymnastics &middot; Texas, USA</p>
+</footer>
+
+</body>
+</html>
