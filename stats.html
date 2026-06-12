@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nora Greenfield — Visual Stats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#14171F;
+    --chalk:#EFF1F4;
+    --slate:#5A6072;
+    --gold:#CBA135;
+    --pink:#FF3E78;
+    --tangerine:#FF8A3D;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--chalk);
+    line-height:1.6;
+  }
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    background:var(--ink);
+    color:var(--chalk);
+    padding:1rem 1.25rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:0.75rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  nav .brand{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    text-transform:none;
+    letter-spacing:0;
+  }
+  nav ul{ list-style:none; display:flex; gap:1.25rem; flex-wrap:wrap; }
+  nav a{ text-decoration:none; opacity:0.75; transition:opacity .2s; }
+  nav a:hover, nav a.active{ opacity:1; }
+  nav a.active{ color:var(--gold); }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header{
+    position:relative;
+    background:var(--ink);
+    color:var(--chalk);
+    padding:3rem 1.25rem;
+    overflow:hidden;
+    text-align:center;
+  }
+  .page-header .stripes{
+    position:absolute;
+    width:140%;
+    height:70%;
+    top:-20%;
+    right:-25%;
+    transform:rotate(12deg);
+    background:repeating-linear-gradient(
+      120deg,
+      var(--pink) 0 22px,
+      var(--tangerine) 22px 44px,
+      var(--gold) 44px 54px,
+      transparent 54px 78px
+    );
+    opacity:0.85;
+    z-index:0;
+  }
+  .page-header-inner{ position:relative; z-index:1; max-width:900px; margin:0 auto; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--chalk);
+    margin-top:0.6rem;
+  }
+  h1{
+    font-family:'Instrument Serif', serif;
+    font-weight:400;
+    font-size:clamp(2.4rem, 8vw, 3.8rem);
+    line-height:1.05;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{
+    max-width:900px;
+    margin:0 auto;
+    padding:3rem 1.25rem;
+  }
+  .divider{
+    width:64px;
+    height:3px;
+    background:var(--gold);
+    transform:rotate(-2deg);
+    margin-bottom:1.25rem;
+  }
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin-bottom:0.75rem;
+  }
+  h2{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(1.6rem, 5vw, 2.4rem);
+    margin-bottom:1.25rem;
+  }
+  p.note{
+    color:#2A2E38;
+    max-width:60ch;
+    margin-bottom:1.25rem;
+  }
+
+  /* ---------- STAT CARDS ---------- */
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1rem;
+  }
+  @media (min-width:640px){
+    .stat-grid{ grid-template-columns:repeat(4, 1fr); }
+  }
+  .stat-card{
+    background:var(--ink);
+    color:var(--chalk);
+    border-radius:10px;
+    padding:1.25rem 1rem;
+    text-align:center;
+  }
+  .stat-card .num{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-size:2.4rem;
+    color:var(--gold);
+    line-height:1;
+    margin-bottom:0.35rem;
+  }
+  .stat-card .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#C7CBD4;
+  }
+
+  /* ---------- CHART CARDS ---------- */
+  .chart-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1.5rem;
+  }
+  @media (min-width:700px){
+    .chart-grid.two{ grid-template-columns:1fr 1fr; }
+  }
+  .chart-card{
+    background:#fff;
+    border:1px solid #DADDE3;
+    border-radius:10px;
+    padding:1.25rem;
+  }
+  .chart-card h3{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-size:1.2rem;
+    margin-bottom:0.25rem;
+  }
+  .chart-card .chart-note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin-bottom:1rem;
+  }
+  .chart-card canvas{ max-height:280px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:3rem 1.25rem; text-align:center; }
+  footer .insta-link{
+    display:inline-flex;
+    align-items:center;
+    gap:0.4rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:1rem;
+    text-decoration:none;
+    color:var(--ink);
+    border-bottom:2px solid var(--pink);
+    padding-bottom:2px;
+    margin-bottom:1.25rem;
+    transition:border-color .2s;
+  }
+  footer .insta-link:hover{ border-color:var(--tangerine); }
+  footer ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:1.5rem;
+    margin-top:1.25rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  footer a{ text-decoration:none; color:var(--slate); transition:color .2s; }
+  footer a:hover{ color:var(--ink); }
+  footer .copyright{
+    margin-top:2rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--slate);
+  }
+
+  .sr-only{
+    position:absolute;
+    width:1px; height:1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Nora Greenfield</span>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="stats.html" class="active">Visual Stats</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="photos.html">Photos</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="stripes" aria-hidden="true"></div>
+  <div class="page-header-inner">
+    <h1>Visual Stats</h1>
+    <p class="eyebrow">41 Meets &middot; 2021&ndash;2026</p>
+  </div>
+</header>
+
+<section class="headline-stats">
+  <p class="section-label">By the Numbers</p>
+  <div class="divider"></div>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="num">41</div>
+      <div class="label">Meets Competed</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">25</div>
+      <div class="label">All-Around Titles</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">88%</div>
+      <div class="label">All-Around Podium Rate</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">5</div>
+      <div class="label">Years Running on America's Top 100</div>
+    </div>
+  </div>
+</section>
+
+<section class="trajectory">
+  <p class="section-label">The Climb</p>
+  <div class="divider"></div>
+  <h2>All-Around progression</h2>
+  <p class="note">Nora's All-Around personal bests across the optional level track, and her trajectory in the Hopes/Elite developmental program — the track most directly tied to her Junior Elite goal.</p>
+  <div class="chart-grid two">
+    <div class="chart-card">
+      <h3>Optional Levels</h3>
+      <p class="chart-note">AA Personal Best by Level</p>
+      <canvas id="opticalChart" role="img" aria-label="Line chart showing All-Around personal best scores climbing from 38.500 at Level 3 to 39.075 at Level 8"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Hopes / Elite Track</h3>
+      <p class="chart-note">AA Personal Best by Division</p>
+      <canvas id="hopesChart" role="img" aria-label="Bar chart showing All-Around personal bests rising from 43.750 in Hopes 11-12 to 45.150 in H1 to 47.150 in Elite"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="profile">
+  <p class="section-label">Event Profile</p>
+  <div class="divider"></div>
+  <h2>Level 8 event balance</h2>
+  <p class="note">Personal bests across all four events at Level 8, her most recently completed optional level — bars stands out as her strongest event.</p>
+  <div class="chart-card" style="max-width:480px; margin:0 auto;">
+    <h3>Level 8 Personal Bests</h3>
+    <p class="chart-note">Out of 10.0</p>
+    <canvas id="radarChart" role="img" aria-label="Radar chart showing Level 8 personal bests: Vault 9.725, Bars 9.900, Beam 9.800, Floor 9.875"></canvas>
+  </div>
+</section>
+
+<section class="wins">
+  <p class="section-label">Podium Finishes</p>
+  <div class="divider"></div>
+  <h2>First-place finishes by event</h2>
+  <p class="note">Out of 41 meets across her career, Nora has finished first in these events the following number of times.</p>
+  <div class="chart-card">
+    <canvas id="winsChart" role="img" aria-label="Bar chart of first place finishes: Vault 15, Bars 24, Beam 10, Floor 23, All-Around 25, out of 41 meets"></canvas>
+  </div>
+</section>
+
+<footer>
+  <a class="insta-link" href="https://www.instagram.com/thejoyfulgymnast" target="_blank" rel="noopener">@thejoyfulgymnast</a>
+  <ul>
+    <li><a href="stats.html">Visual Stats</a></li>
+    <li><a href="skills.html">Skills List</a></li>
+    <li><a href="photos.html">Photo Highlights</a></li>
+  </ul>
+  <p class="copyright">WOGA Gymnastics &middot; Texas, USA</p>
+</footer>
+
+<script>
+  const ink = '#14171F';
+  const slate = '#5A6072';
+  const gold = '#CBA135';
+  const pink = '#FF3E78';
+  const tangerine = '#FF8A3D';
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.color = slate;
+  Chart.defaults.borderColor = '#E4E7EC';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animation = reduceMotion ? false : { duration: 900, easing: 'easeOutQuart' };
+
+  // Optional Levels AA progression
+  new Chart(document.getElementById('opticalChart'), {
+    type: 'line',
+    data: {
+      labels: ['L3', 'L4', 'L4P', 'L5', 'L7', 'L8'],
+      datasets: [{
+        label: 'AA Personal Best',
+        data: [38.500, 38.700, 37.800, 38.450, 39.075, 39.075],
+        borderColor: gold,
+        backgroundColor: 'rgba(203,161,53,0.15)',
+        fill: true,
+        tension: 0.35,
+        pointBackgroundColor: gold,
+        pointRadius: 5
+      }]
+    },
+    options: {
+      animation,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { min: 36, max: 40, ticks: { font: { family: "'IBM Plex Mono', monospace" } } },
+        x: { ticks: { font: { family: "'IBM Plex Mono', monospace" } } }
+      }
+    }
+  });
+
+  // Hopes/Elite AA progression
+  new Chart(document.getElementById('hopesChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Hopes 11–12', 'H1', 'Elite'],
+      datasets: [{
+        label: 'AA Personal Best',
+        data: [43.750, 45.150, 47.150],
+        backgroundColor: [pink, tangerine, gold],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      animation,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { min: 40, max: 48, ticks: { font: { family: "'IBM Plex Mono', monospace" } } },
+        x: { ticks: { font: { family: "'IBM Plex Mono', monospace" } } }
+      }
+    }
+  });
+
+  // Level 8 radar
+  new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['Vault', 'Bars', 'Beam', 'Floor'],
+      datasets: [{
+        label: 'Level 8 PB',
+        data: [9.725, 9.900, 9.800, 9.875],
+        borderColor: gold,
+        backgroundColor: 'rgba(203,161,53,0.2)',
+        pointBackgroundColor: gold,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      animation,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          min: 9, max: 10,
+          ticks: { stepSize: 0.25, font: { family: "'IBM Plex Mono', monospace", size: 10 } },
+          pointLabels: { font: { family: "'IBM Plex Mono', monospace", size: 12 } }
+        }
+      }
+    }
+  });
+
+  // First place finishes
+  new Chart(document.getElementById('winsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Vault', 'Bars', 'Beam', 'Floor', 'All-Around'],
+      datasets: [{
+        label: '1st Place Finishes',
+        data: [15, 24, 10, 23, 25],
+        backgroundColor: [pink, tangerine, gold, '#9CA3AF', ink],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      animation,
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { min: 0, max: 41, ticks: { font: { family: "'IBM Plex Mono', monospace" } } },
+        y: { ticks: { font: { family: "'IBM Plex Mono', monospace" } } }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
