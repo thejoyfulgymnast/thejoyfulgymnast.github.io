@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nora Greenfield — Skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171F;
+    --chalk:#EFF1F4;
+    --slate:#5A6072;
+    --gold:#CBA135;
+    --pink:#FF3E78;
+    --tangerine:#FF8A3D;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--chalk);
+    line-height:1.6;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    background:var(--ink);
+    color:var(--chalk);
+    padding:1rem 1.25rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:0.75rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  nav .brand{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    text-transform:none;
+    letter-spacing:0;
+  }
+  nav ul{ list-style:none; display:flex; gap:1.25rem; flex-wrap:wrap; }
+  nav a{ text-decoration:none; opacity:0.75; transition:opacity .2s; }
+  nav a:hover, nav a.active{ opacity:1; }
+  nav a.active{ color:var(--gold); }
+
+  /* ---------- MAIN ---------- */
+  main{
+    flex:1;
+    position:relative;
+    background:var(--ink);
+    color:var(--chalk);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:4rem 1.25rem;
+    overflow:hidden;
+  }
+  .stripes{
+    position:absolute;
+    width:160%;
+    height:60%;
+    top:-15%;
+    left:-30%;
+    transform:rotate(-9deg);
+    background:repeating-linear-gradient(
+      120deg,
+      var(--pink) 0 22px,
+      var(--tangerine) 22px 44px,
+      var(--gold) 44px 54px,
+      transparent 54px 78px
+    );
+    opacity:0.85;
+    z-index:0;
+  }
+  .content{ position:relative; z-index:1; }
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:0.75rem;
+  }
+  h1{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(2.4rem, 9vw, 4rem);
+    line-height:1.05;
+    margin-bottom:0.75rem;
+  }
+  .content p{
+    color:#C7CBD4;
+    font-size:1rem;
+    max-width:36ch;
+    margin:0 auto;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:3rem 1.25rem; text-align:center; }
+  footer .insta-link{
+    display:inline-flex;
+    align-items:center;
+    gap:0.4rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:1rem;
+    text-decoration:none;
+    color:var(--ink);
+    border-bottom:2px solid var(--pink);
+    padding-bottom:2px;
+    margin-bottom:1.25rem;
+    transition:border-color .2s;
+  }
+  footer .insta-link:hover{ border-color:var(--tangerine); }
+  footer ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:1.5rem;
+    margin-top:1.25rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  footer a{ text-decoration:none; color:var(--slate); transition:color .2s; }
+  footer a:hover{ color:var(--ink); }
+  footer .copyright{
+    margin-top:2rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--slate);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Nora Greenfield</span>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="stats.html">Visual Stats</a></li>
+    <li><a href="skills.html" class="active">Skills</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="stripes" aria-hidden="true"></div>
+  <div class="content">
+    <p class="section-label">Skills List</p>
+    <h1>Under Construction</h1>
+    <p>This page is on the way &mdash; check back soon.</p>
+  </div>
+</main>
+
+<footer>
+  <a class="insta-link" href="https://www.instagram.com/thejoyfulgymnast" target="_blank" rel="noopener">@thejoyfulgymnast</a>
+  <ul>
+    <li><a href="stats.html">Visual Stats</a></li>
+    <li><a href="skills.html">Skills List</a></li>
+  </ul>
+  <p class="copyright">WOGA Gymnastics &middot; Texas, USA</p>
+</footer>
+
+</body>
+</html>
