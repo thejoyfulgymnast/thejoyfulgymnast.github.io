@@ -257,7 +257,7 @@
   <div class="stripes" aria-hidden="true"></div>
   <div class="page-header-inner">
     <h1>Visual Stats</h1>
-    <p class="eyebrow">41 Meets &middot; 2021&ndash;2026</p>
+    <p class="eyebrow">42 Meets &middot; 2021&ndash;2026</p>
   </div>
 </header>
 
@@ -266,7 +266,7 @@
   <div class="divider"></div>
   <div class="stat-grid">
     <div class="stat-card">
-      <div class="num">41</div>
+      <div class="num">42</div>
       <div class="label">Meets Competed</div>
     </div>
     <div class="stat-card">
@@ -298,7 +298,7 @@
     <div class="chart-card">
       <h3>Hopes / Elite Track</h3>
       <p class="chart-note">AA Personal Best by Division</p>
-      <canvas id="hopesChart" role="img" aria-label="Bar chart showing All-Around personal bests rising from 43.750 in Hopes 11-12 to 45.150 in H1 to 47.150 in Elite"></canvas>
+      <canvas id="hopesChart" role="img" aria-label="Bar chart showing All-Around personal bests of 48.800 in H1 and 47.150 in Elite"></canvas>
     </div>
   </div>
 </section>
@@ -319,9 +319,9 @@
   <p class="section-label">Podium Finishes</p>
   <div class="divider"></div>
   <h2>First-place finishes by event</h2>
-  <p class="note">Out of 41 meets across her career, Nora has finished first in these events the following number of times.</p>
+  <p class="note">Out of 42 meets across her career, Nora has finished first in these events the following number of times.</p>
   <div class="chart-card">
-    <canvas id="winsChart" role="img" aria-label="Bar chart of first place finishes: Vault 15, Bars 24, Beam 10, Floor 23, All-Around 25, out of 41 meets"></canvas>
+    <canvas id="winsChart" role="img" aria-label="Bar chart of first place finishes: Vault 15, Bars 24, Beam 10, Floor 23, All-Around 25, out of 42 meets"></canvas>
   </div>
 </section>
 
@@ -378,11 +378,11 @@
   new Chart(document.getElementById('hopesChart'), {
     type: 'bar',
     data: {
-      labels: ['Hopes 11–12', 'H1', 'Elite'],
+      labels: ['H1', 'Elite'],
       datasets: [{
         label: 'AA Personal Best',
-        data: [43.750, 45.150, 47.150],
-        backgroundColor: [pink, tangerine, gold],
+        data: [48.800, 47.150],
+        backgroundColor: [tangerine, gold],
         borderRadius: 6
       }]
     },
@@ -390,7 +390,7 @@
       animation,
       plugins: { legend: { display: false } },
       scales: {
-        y: { min: 40, max: 48, ticks: { font: { family: "'IBM Plex Mono', monospace" } } },
+        y: { min: 44, max: 50, ticks: { font: { family: "'IBM Plex Mono', monospace" } } },
         x: { ticks: { font: { family: "'IBM Plex Mono', monospace" } } }
       }
     }
@@ -415,8 +415,8 @@
       plugins: { legend: { display: false } },
       scales: {
         r: {
-          min: 9, max: 10,
-          ticks: { stepSize: 0.25, font: { family: "'IBM Plex Mono', monospace", size: 10 } },
+          min: 9.6, max: 10,
+          ticks: { stepSize: 0.1, font: { family: "'IBM Plex Mono', monospace", size: 10 } },
           pointLabels: { font: { family: "'IBM Plex Mono', monospace", size: 12 } }
         }
       }
@@ -440,7 +440,7 @@
       indexAxis: 'y',
       plugins: { legend: { display: false } },
       scales: {
-        x: { min: 0, max: 41, ticks: { font: { family: "'IBM Plex Mono', monospace" } } },
+        x: { min: 0, max: 42, ticks: { font: { family: "'IBM Plex Mono', monospace" } } },
         y: { ticks: { font: { family: "'IBM Plex Mono', monospace" } } }
       }
     }
